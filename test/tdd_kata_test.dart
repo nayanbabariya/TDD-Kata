@@ -22,4 +22,8 @@ void main() {
   test('Should return the sum of numbers when new line is used as separator instead of comma', () {
     expect(6, add('1\n2,3'));
   });
+
+  test('Should return the sum of numbers when a custom delimiter is used. Delimiter is specified at the beginning of the input', () {
+    expect(3, add('//;\n1;2'));
+  });
 }
