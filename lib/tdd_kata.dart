@@ -24,5 +24,7 @@ int add(String numbers) {
         'Negative numbers not allowed ${integerNumbers.where((n) => n < 0).join(',')}');
   }
 
-  return integerStrings.map(int.parse).reduce((a, b) => a + b);
+  return integerStrings
+      .map(int.parse)
+      .reduce((sum, number) => sum + (number > 1000 ? 0 : number));
 }
