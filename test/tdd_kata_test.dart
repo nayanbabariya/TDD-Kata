@@ -51,4 +51,8 @@ void main() {
       }
     }
   });
+
+  test('Should ignore the number bigger than 1000 in sum', () {
+    expect(add('2,1001'), 2);
+  });
 }
