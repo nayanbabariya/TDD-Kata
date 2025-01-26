@@ -5,36 +5,37 @@ int add(String numbers) {
     return 0;
   }
 
-  var delimiterExp = RegExp(r'[,\n]');
-  late final List<String> integerStrings;
+  final verifyDelimiterRegExp = RegExp(r'^//(\[.*?\]|.)\n');
+  String defaultDelimiters = ',|\n';
+  var numberString = numbers;
 
-  if (numbers.startsWith('//')) {
-    final delimiterStartIndex = 2;
-    final delimiterEndIndex = numbers.indexOf('\n');
-    final delimiterString =
-        numbers.substring(delimiterStartIndex, delimiterEndIndex);
+  final match = verifyDelimiterRegExp.firstMatch(numbers);
 
-    if (delimiterString.startsWith('[') && delimiterString.endsWith(']')) {
-      delimiterExp = RegExp(RegExp.escape(
-          delimiterString.substring(1, delimiterString.length - 1)));
+  if (match != null) {
+    final rawDelimiters = match.group(1)!;
+    if (rawDelimiters.startsWith('[') && rawDelimiters.endsWith(']')) {
+      final customDelimiterRegExp = RegExp(r'\[(.*?)\]');
+      final delimiters = customDelimiterRegExp
+          .allMatches(rawDelimiters)
+          .map((m) => RegExp.escape(m.group(1)!))
+          .toList();
+      defaultDelimiters = delimiters.join('|');
     } else {
-      delimiterExp = RegExp(RegExp.escape(delimiterString));
+      defaultDelimiters = RegExp.escape(rawDelimiters);
     }
-
-    integerStrings =
-        numbers.substring(numbers.indexOf('\n') + 1).split(delimiterExp);
-  } else {
-    integerStrings = numbers.split(delimiterExp);
+    numberString = numbers.substring(match.end);
   }
 
-  final integerNumbers = integerStrings.map(int.parse);
+  final splitRegExp = RegExp(defaultDelimiters);
+
+  final integerNumbers =
+      numberString.split(splitRegExp).map((e) => int.parse(e)).toList();
 
   if (integerNumbers.any((n) => n < 0)) {
     throw NegativeNumberException(
         'Negative numbers not allowed ${integerNumbers.where((n) => n < 0).join(',')}');
   }
 
-  return integerStrings
-      .map(int.parse)
+  return integerNumbers
       .reduce((sum, number) => sum + (number > 1000 ? 0 : number));
 }
