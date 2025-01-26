@@ -13,4 +13,9 @@ void main() {
   test('Should return the sum of 2 numbers when 2 comma separated numbers are provided', () {
     expect(3, add('1,2'));
   });
+
+  test('Should return the sum of all numbers when multiple comma separated numbers are provided', () {
+    expect(6, add('1,2,3'));
+    expect(10, add('1,2,3,4'));
+  });
 }
