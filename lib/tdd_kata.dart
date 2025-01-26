@@ -9,8 +9,16 @@ int add(String numbers) {
   late final List<String> integerStrings;
 
   if (numbers.startsWith('//')) {
-    delimiterExp =
-        RegExp(RegExp.escape(numbers.substring(2, numbers.indexOf('\n'))));
+    final delimiterString = numbers.substring(2, numbers.indexOf('\n'));
+
+    if (delimiterString.startsWith('[') && delimiterString.endsWith(']')) {
+      delimiterExp = RegExp(RegExp.escape(
+          delimiterString.substring(1, delimiterString.length - 1)));
+    } else {
+      delimiterExp =
+          RegExp(RegExp.escape(numbers.substring(2, numbers.indexOf('\n'))));
+    }
+
     integerStrings =
         numbers.substring(numbers.indexOf('\n') + 1).split(delimiterExp);
   } else {
