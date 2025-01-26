@@ -11,24 +11,34 @@ void main() {
     expect(add('1'), 1);
   });
 
-  test('Should return the sum of 2 numbers when 2 comma separated numbers are provided', () {
+  test(
+      'Should return the sum of 2 numbers when 2 comma separated numbers are provided',
+      () {
     expect(add('1,2'), 3);
   });
 
-  test('Should return the sum of all numbers when multiple comma separated numbers are provided', () {
+  test(
+      'Should return the sum of all numbers when multiple comma separated numbers are provided',
+      () {
     expect(add('1,2,3'), 6);
     expect(add('1,2,3,4'), 10);
   });
-  
-  test('Should return the sum of numbers when new line is used as separator instead of comma', () {
+
+  test(
+      'Should return the sum of numbers when new line is used as separator instead of comma',
+      () {
     expect(add('1\n2,3'), 6);
   });
 
-  test('Should return the sum of numbers when a custom delimiter is used. Delimiter is specified at the beginning of the input', () {
+  test(
+      'Should return the sum of numbers when a custom delimiter is used. Delimiter is specified at the beginning of the input',
+      () {
     expect(add('//;\n1;2'), 3);
   });
 
-  test('Should throw an exception with the list of negative numbers when negative numbers are provided', () {
+  test(
+      'Should throw an exception with the list of negative numbers when negative numbers are provided',
+      () {
     final testCases = [
       (input: '-1,-2', exceptionMessageContains: '-1,-2'),
       (input: '1,-2', exceptionMessageContains: '-2'),
@@ -56,15 +66,20 @@ void main() {
     expect(add('2,1001'), 2);
   });
 
-  test('Should return the sum of numbers when a custom delimiter with any length is used', () {
+  test(
+      'Should return the sum of numbers when a custom delimiter with any length is used',
+      () {
     expect(add('//[***]\n1***2***3'), 6);
   });
 
-  test('Should return the sum of numbers when a multiple delimiters are used', () {
+  test('Should return the sum of numbers when a multiple delimiters are used',
+      () {
     expect(add('//[*][%]\n1*2%3'), 6);
   });
-  
-  test('Should return the sum of numbers when multiple delimiters are used with length longer than 1 char', () {
+
+  test(
+      'Should return the sum of numbers when multiple delimiters are used with length longer than 1 char',
+      () {
     expect(add('//[**][%%]\n1**2%%3'), 6);
   });
 }
