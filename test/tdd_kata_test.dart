@@ -18,4 +18,8 @@ void main() {
     expect(6, add('1,2,3'));
     expect(10, add('1,2,3,4'));
   });
+  
+  test('Should return the sum of numbers when new line is used as separator instead of comma', () {
+    expect(6, add('1\n2,3'));
+  });
 }
