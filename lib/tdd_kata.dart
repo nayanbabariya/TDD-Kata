@@ -9,14 +9,16 @@ int add(String numbers) {
   late final List<String> integerStrings;
 
   if (numbers.startsWith('//')) {
-    final delimiterString = numbers.substring(2, numbers.indexOf('\n'));
+    final delimiterStartIndex = 2;
+    final delimiterEndIndex = numbers.indexOf('\n');
+    final delimiterString =
+        numbers.substring(delimiterStartIndex, delimiterEndIndex);
 
     if (delimiterString.startsWith('[') && delimiterString.endsWith(']')) {
       delimiterExp = RegExp(RegExp.escape(
           delimiterString.substring(1, delimiterString.length - 1)));
     } else {
-      delimiterExp =
-          RegExp(RegExp.escape(numbers.substring(2, numbers.indexOf('\n'))));
+      delimiterExp = RegExp(RegExp.escape(delimiterString));
     }
 
     integerStrings =
