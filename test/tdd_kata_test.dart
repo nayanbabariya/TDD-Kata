@@ -59,4 +59,8 @@ void main() {
   test('Should return the sum of numbers when a custom delimiter with any length is used', () {
     expect(add('//[***]\n1***2***3'), 6);
   });
+
+  test('Should return the sum of numbers when a multiple delimiters are used', () {
+    expect(add('//[*][%]\n1*2%3'), 6);
+  });
 }
