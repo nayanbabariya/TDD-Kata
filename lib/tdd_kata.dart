@@ -3,14 +3,16 @@ int add(String numbers) {
     return 0;
   }
 
+  var delimiterExp = RegExp(r'[,\n]');
+  late final List<String> integerStrings;
+
   if (numbers.startsWith('//')) {
-    final delimiter = numbers.substring(2, numbers.indexOf('\n'));
-    return numbers.substring(numbers.indexOf('\n') + 1)
-        .split(RegExp(delimiter))
-        .map(int.parse)
-        .reduce((a, b) => a + b);
+    delimiterExp = RegExp(numbers.substring(2, numbers.indexOf('\n')));
+    integerStrings =
+        numbers.substring(numbers.indexOf('\n') + 1).split(delimiterExp);
+  } else {
+    integerStrings = numbers.split(delimiterExp);
   }
 
-  final integers = numbers.split(RegExp(r'[,\n]'));
-  return integers.map(int.parse).reduce((a, b) => a + b);
+  return integerStrings.map(int.parse).reduce((a, b) => a + b);
 }
